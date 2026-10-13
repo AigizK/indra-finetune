@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "indra-ocr"
+version = "0.3.1"
+description = "Fast CPU OCR: line detection, CTC recognition, reading order and markdown, on ONNX Runtime"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "opencv-python-headless",
+  "onnxruntime",
+  "pypdfium2",
+  "huggingface_hub",
+]
+
+[project.urls]
+Homepage = "https://www.datalab.to"
+Repository = "https://github.com/datalab-to/indra"
+Models = "https://huggingface.co/datalab-to/indra-ocr"
+Changelog = "https://github.com/datalab-to/indra/blob/main/CHANGELOG.md"
+Issues = "https://github.com/datalab-to/indra/issues"
+
+[project.optional-dependencies]
+tesseract = ["pytesseract"]
+test = ["pytest", "pillow", "pikepdf"]
+
+[project.scripts]
+indra-ocr = "indra_ocr.cli:main"
+indra-ocr-viewer = "indra_ocr.viewer:main"
+
+[tool.setuptools]
+packages = ["indra_ocr"]
