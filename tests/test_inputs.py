@@ -159,3 +159,43 @@ def test_version_flag(capsys):
     with pytest.raises(SystemExit):
         main(["--version"])
     assert capsys.readouterr().out.strip() == f"indra-ocr {__version__}"
+
+
+def test_cached_models_are_checked_once_a_day(tmp_path, monkeypatch):
+    import os
+    import time
+
+    import huggingface_hub
+    from huggingface_hub import constants
+
+    from indra_ocr import models
+
+    monkeypatch.delenv("INDRA_OCR_MODEL_DIR", raising=False)
+    monkeypatch.setattr(constants, "HF_HUB_CACHE", str(tmp_path))
+    calls = []
+    state = {"cached": False, "online": True}
+
+    def fake(repo, local_files_only=False, **kw):
+        calls.append("local" if local_files_only else "hub")
+        if local_files_only and not state["cached"]:
+            raise FileNotFoundError("not cached")
+        if not local_files_only and not state["online"]:
+            raise ConnectionError("offline")
+        state["cached"] = True
+        return str(tmp_path / "snap")
+
+    monkeypatch.setattr(huggingface_hub, "snapshot_download", fake)
+    models.model_dir(None)  # first run: downloads
+    assert calls == ["local", "hub"]
+    calls.clear()
+    models.model_dir(None)  # checked under a day ago: cache only
+    assert calls == ["local"]
+    stamp = models._check_stamp(models.HF_REVISION)
+    old = time.time() - models.CHECK_EVERY_S - 60
+    os.utime(stamp, (old, old))
+    calls.clear()
+    models.model_dir(None)  # a day later: checks the Hub again
+    assert calls == ["local", "hub"]
+    os.utime(stamp, (old, old))
+    state["online"] = False
+    assert models.model_dir(None) == tmp_path / "snap"  # offline: the cached models

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.2
+
+- Models from Hugging Face tag `v3.1.1`: the same models as `v3.1`, plus
+  `config.json` (the file the Hub counts downloads by) and `model.safetensors`
+  (the recognizer's weights, for the Hub's parameter count; never downloaded).
+- A cached model folder is checked against the Hub at most once a day
+  (`CHECK_EVERY_S`); the other runs use the cache with no network, and a
+  failed check (offline) keeps the cached models.
+
 ## 0.3.1
 
 - A model download that fails (no network, no access) or a model folder with

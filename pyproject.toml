@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "indra-ocr"
-version = "0.3.1"
+version = "0.3.2"
 description = "Fast CPU OCR: line detection, CTC recognition, reading order and markdown, on ONNX Runtime"
 readme = "README.md"
 license = "Apache-2.0"
