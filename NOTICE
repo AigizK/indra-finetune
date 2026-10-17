@@ -11,6 +11,8 @@ Local additions and changes, October 2026:
 - Fine-tuning documentation, validation report, integration tests, and CI.
 - Package metadata, README, and ignore rules updated for this distribution.
 - The upstream PyPI publishing workflow has been removed.
+- Version 0.2: MPS training with CPU CTC, content-addressed line caching,
+  shuffled width batching, pre-training baseline and full-page evaluation.
 
 The original upstream README is retained in UPSTREAM_README.md.
 Model weights are downloaded separately from datalab-to/indra-ocr on

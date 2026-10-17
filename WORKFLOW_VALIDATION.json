@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-18",
+  "distribution": "indra-finetune==0.2.0",
+  "environment": {
+    "platform": "macOS-26.6-arm64-arm-64bit-Mach-O",
+    "python": "3.13.13",
+    "torch": "2.14.1",
+    "rapidfuzz": "3.14.6",
+    "device": "Apple MPS (model), CPU (CTC)"
+  },
+  "tests": {
+    "passed": 42,
+    "skipped": 0,
+    "command": ".venv/bin/python -m pytest -q",
+    "warnings": "2 legacy ONNX exporter deprecation warnings"
+  },
+  "checks": [
+    "lossless live/cached crop equivalence",
+    "cache hits avoid image decoding",
+    "cache invalidation by image content, bbox and preprocessing",
+    "width batching uses every sample and respects padded area",
+    "CPU resume matches uninterrupted training bit for bit",
+    "CPU/MPS loss and head gradients agree within tolerance",
+    "MPS optimizer step and portable checkpoint",
+    "baseline before optimization and head extension",
+    "best checkpoint exists even for perfect baseline",
+    "page OCR comparison with CER/WER and identical settings",
+    "failed pages remain in metrics and cause nonzero exit",
+    "dynamic ONNX export after MPS training"
+  ],
+  "smoke": {
+    "source": "johnlockejrr/finetune-indra@8997bce7246fb439c0380a249ea582fa37297593, examples/line-boxes",
+    "training_lines": 18,
+    "validation_lines": 20,
+    "training_epochs": 2,
+    "baseline": {
+      "normalization": "NFC",
+      "samples": 20,
+      "cer": 0.7311627906976744,
+      "wer": 1.0,
+      "macro_cer": 0.7337427900134379,
+      "exact": 0,
+      "accuracy": 0.0,
+      "char_errors": 786,
+      "reference_chars": 1075,
+      "word_errors": 170,
+      "reference_words": 170
+    },
+    "epoch_metrics": [
+      {
+        "epoch": 1,
+        "step": 3,
+        "train_loss": 5.211465067333645,
+        "normalization": "NFC",
+        "samples": 20,
+        "cer": 0.695813953488372,
+        "wer": 1.0,
+        "macro_cer": 0.6968296436071206,
+        "exact": 0,
+        "accuracy": 0.0,
+        "char_errors": 748,
+        "reference_chars": 1075,
+        "word_errors": 170,
+        "reference_words": 170,
+        "valid_loss": 3.2720266342163087,
+        "improved_over_baseline": true,
+        "seconds": 0.3780090839136392
+      },
+      {
+        "epoch": 2,
+        "step": 6,
+        "train_loss": 2.3831605911254883,
+        "normalization": "NFC",
+        "samples": 20,
+        "cer": 0.6837209302325581,
+        "wer": 1.0,
+        "macro_cer": 0.6845044823928055,
+        "exact": 0,
+        "accuracy": 0.0,
+        "char_errors": 735,
+        "reference_chars": 1075,
+        "word_errors": 170,
+        "reference_words": 170,
+        "valid_loss": 3.0936601638793944,
+        "improved_over_baseline": true,
+        "seconds": 0.12356604216620326
+      }
+    ],
+    "resumed_epoch_metrics": [
+      {
+        "epoch": 3,
+        "step": 9,
+        "train_loss": 2.082038640975952,
+        "normalization": "NFC",
+        "samples": 20,
+        "cer": 0.6753488372093023,
+        "wer": 1.0,
+        "macro_cer": 0.6761725762036249,
+        "exact": 0,
+        "accuracy": 0.0,
+        "char_errors": 726,
+        "reference_chars": 1075,
+        "word_errors": 170,
+        "reference_words": 170,
+        "valid_loss": 2.972750949859619,
+        "improved_over_baseline": true,
+        "seconds": 0.31636595795862377
+      }
+    ],
+    "page_evaluation": {
+      "baseline": {
+        "samples": 1,
+        "cer": 0.4570383912248629,
+        "wer": 0.9764705882352941,
+        "failed_pages": 0
+      },
+      "candidate": {
+        "samples": 1,
+        "cer": 0.42413162705667273,
+        "wer": 0.9823529411764705,
+        "failed_pages": 0
+      }
+    },
+    "page_delta": {
+      "cer": -0.03290676416819016,
+      "wer": 0.00588235294117645
+    },
+    "export_parity": {
+      "batches": 6,
+      "lines": 11,
+      "max_logit_error": 8.392333984375e-05,
+      "max_confidence_error": 9.775161743164062e-06,
+      "ids_equal": true,
+      "lengths_equal": true
+    },
+    "note": "Tiny Latin manuscript smoke test to validate mechanics; not a Bashkir quality benchmark."
+  },
+  "build": {
+    "wheel": "indra_finetune-0.2.0-py3-none-any.whl",
+    "sdist": "indra_finetune-0.2.0.tar.gz"
+  }
+}

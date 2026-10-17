@@ -10,6 +10,7 @@ runs/
 .pytest_cache/
 data/
 datasets/
+.line-cache/
 .env
 .env.*
 *.pt
