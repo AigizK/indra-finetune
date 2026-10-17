@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-17",
+  "cpu": "Apple M4 Pro",
+  "system_ram_gb": 24,
+  "device": "cpu",
+  "torch": "2.14.1",
+  "python": "3.13.13",
+  "warmup_steps": 2,
+  "results": [
+    {
+      "target_tokens": 82,
+      "width": 512,
+      "batch": 8,
+      "steps": 5,
+      "threads": 2,
+      "seconds_per_step": 0.11076484997756779,
+      "lines_per_second": 72.22507863839628,
+      "peak_process_rss_mb": 411.9375,
+      "last_loss": 4.802970886230469,
+      "scope": "model+CTC+AdamW+clipping; excludes image I/O, validation, checkpoint writing"
+    },
+    {
+      "target_tokens": 82,
+      "width": 1024,
+      "batch": 8,
+      "steps": 5,
+      "threads": 2,
+      "seconds_per_step": 0.13565693339332938,
+      "lines_per_second": 58.97228987776442,
+      "peak_process_rss_mb": 567.796875,
+      "last_loss": 4.611736297607422,
+      "scope": "model+CTC+AdamW+clipping; excludes image I/O, validation, checkpoint writing"
+    },
+    {
+      "target_tokens": 82,
+      "width": 1024,
+      "batch": 16,
+      "steps": 5,
+      "threads": 2,
+      "seconds_per_step": 1.8473705916199834,
+      "lines_per_second": 8.660958484766931,
+      "peak_process_rss_mb": 714.078125,
+      "last_loss": 4.639753341674805,
+      "scope": "model+CTC+AdamW+clipping; excludes image I/O, validation, checkpoint writing"
+    }
+  ],
+  "notes": [
+    "Microbenchmark on synthetic ink maps; includes model, CTC, backward, AdamW and gradient clipping.",
+    "Excludes image decoding, validation, CER and checkpoint writing.",
+    "Timing is machine and batch dependent; not a quality evaluation."
+  ]
+}

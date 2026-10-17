@@ -3,12 +3,12 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "indra-ocr"
-version = "0.3.2"
-description = "Fast CPU OCR: line detection, CTC recognition, reading order and markdown, on ONNX Runtime"
+name = "indra-finetune"
+version = "0.1.0"
+description = "Recover the Indra OCR line recognizer in PyTorch, fine-tune with CTC, and export to ONNX"
 readme = "README.md"
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.10"
 dependencies = [
   "numpy",
@@ -19,19 +19,21 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://www.datalab.to"
-Repository = "https://github.com/datalab-to/indra"
+Homepage = "https://github.com/AigizK/indra-finetune"
+Repository = "https://github.com/AigizK/indra-finetune"
+Upstream = "https://github.com/datalab-to/indra"
 Models = "https://huggingface.co/datalab-to/indra-ocr"
-Changelog = "https://github.com/datalab-to/indra/blob/main/CHANGELOG.md"
-Issues = "https://github.com/datalab-to/indra/issues"
+Issues = "https://github.com/AigizK/indra-finetune/issues"
 
 [project.optional-dependencies]
 tesseract = ["pytesseract"]
 test = ["pytest", "pillow", "pikepdf"]
+train = ["torch>=2.6,<3", "onnx>=1.17", "safetensors>=0.5"]
 
 [project.scripts]
 indra-ocr = "indra_ocr.cli:main"
 indra-ocr-viewer = "indra_ocr.viewer:main"
+indra-finetune = "indra_ocr.finetune.__main__:main"
 
 [tool.setuptools]
-packages = ["indra_ocr"]
+packages = ["indra_ocr", "indra_ocr.finetune"]

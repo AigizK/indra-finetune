@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-17",
+  "upstream_commit": "3d773aeedc5d79d1d0a2a04007a9075cd71a59f4",
+  "model_release": "datalab-to/indra-ocr@v3.1.1",
+  "environment": {
+    "python": "3.13.13",
+    "platform": "macOS-26.6-arm64-arm-64bit-Mach-O",
+    "device": "cpu",
+    "torch": "2.14.1",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0",
+    "numpy": "2.5.4"
+  },
+  "source": {
+    "rec_sha256": "e243be069b357e56a0e867a21d7482e498df42fb19678bfb67a25f48b1f06151",
+    "meta_sha256": "ff6ec58f91c93a475ae9505ad21c73c3ecda0b378f1d889dd83408e10832d1bb",
+    "repository": "https://github.com/datalab-to/indra",
+    "model_repository": "datalab-to/indra-ocr",
+    "reconstruction": "fused-inference-graph",
+    "safetensors_sha256": "7df6fa345f7e5a72c4207a7a1934022a2676a5416ceb208e001bbdf6ce129532"
+  },
+  "parameters": 1236110,
+  "config": {
+    "classes": 1678,
+    "height": 32,
+    "channels": 128,
+    "expansion": 256,
+    "se_hidden": 64,
+    "blocks": 10,
+    "kernel": 9,
+    "stride": 4,
+    "bn_eps": 9.999999747378752e-06
+  },
+  "recovery_parity": {
+    "batches": 6,
+    "lines": 11,
+    "max_logit_error": 8.392333984375e-05,
+    "max_confidence_error": 9.417533874511719e-06,
+    "ids_equal": true,
+    "lengths_equal": true
+  },
+  "training_smoke": {
+    "lines": 8,
+    "steps": 10,
+    "epochs": 5,
+    "train_and_valid_same": true,
+    "purpose": "mechanics only; no claim about generalization",
+    "metrics": [
+      {
+        "epoch": 1,
+        "step": 2,
+        "train_loss": 0.00027874311490450054,
+        "valid_loss": 5.7148012274410576e-05,
+        "cer": 0.0
+      },
+      {
+        "epoch": 2,
+        "step": 4,
+        "train_loss": 4.6290631871670485e-05,
+        "valid_loss": 1.8877449292631354e-05,
+        "cer": 0.0
+      },
+      {
+        "epoch": 3,
+        "step": 6,
+        "train_loss": 1.7381707493768772e-05,
+        "valid_loss": 9.146681804850232e-06,
+        "cer": 0.0
+      },
+      {
+        "epoch": 4,
+        "step": 8,
+        "train_loss": 7.87876683716604e-06,
+        "valid_loss": 5.249638888926711e-06,
+        "cer": 0.0
+      },
+      {
+        "epoch": 5,
+        "step": 10,
+        "train_loss": 4.746765512209095e-06,
+        "valid_loss": 3.1012358476800728e-06,
+        "cer": 0.0
+      }
+    ],
+    "loss_reduction_factor": 58.72274798229425
+  },
+  "export_parity": {
+    "batches": 8,
+    "lines": 19,
+    "max_logit_error": 8.20159912109375e-05,
+    "max_confidence_error": 9.47713851928711e-06,
+    "ids_equal": true,
+    "lengths_equal": true
+  },
+  "full_ocr_smoke": {
+    "source": "runs/smoke-page.png",
+    "expected_and_actual": [
+      "Hello world",
+      "Indra OCR",
+      "Custom training",
+      "Test number 123"
+    ],
+    "mode": "ocr",
+    "original_and_finetuned_match": true
+  },
+  "tests": {
+    "command": ".venv/bin/python -m pytest -q",
+    "passed": 30,
+    "skipped": 1,
+    "skipped_reason": "optional pikepdf is not installed",
+    "includes": [
+      "released ONNX parity",
+      "CTC training and optimizer resume",
+      "vocabulary extension",
+      "ONNX export",
+      "public OrtOCR runtime"
+    ]
+  },
+  "repository_validation": {
+    "date": "2026-10-18",
+    "distribution": "indra-finetune==0.1.0",
+    "tests": {
+      "passed": 31,
+      "skipped": 0,
+      "warnings": 2,
+      "command": ".venv/bin/python -m pytest -q"
+    },
+    "build": {
+      "wheel": "indra_finetune-0.1.0-py3-none-any.whl",
+      "sdist": "indra_finetune-0.1.0.tar.gz",
+      "includes_training_modules": true,
+      "includes_license_and_notice": true,
+      "includes_model_weights": false
+    }
+  }
+}

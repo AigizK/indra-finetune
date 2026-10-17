@@ -1,0 +1,17 @@
+Indra Fine-tuning
+
+This project derives from Indra OCR by Datalab:
+https://github.com/datalab-to/indra
+Upstream base: 3d773aeedc5d79d1d0a2a04007a9075cd71a59f4 (version 0.3.2).
+The upstream Apache License 2.0 is preserved in LICENSE.
+
+Local additions and changes, October 2026:
+- Reconstructed, trainable PyTorch line recognizer and ONNX parity checks.
+- CTC fine-tuning, vocabulary extension, checkpoint resume, and ONNX export.
+- Fine-tuning documentation, validation report, integration tests, and CI.
+- Package metadata, README, and ignore rules updated for this distribution.
+- The upstream PyPI publishing workflow has been removed.
+
+The original upstream README is retained in UPSTREAM_README.md.
+Model weights are downloaded separately from datalab-to/indra-ocr on
+Hugging Face and have their own license; no weights are included here.

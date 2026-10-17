@@ -1,0 +1,4 @@
+include FINETUNING_RU.md
+include FINETUNING_VALIDATION.json
+include CPU_BENCHMARK.json
+include UPSTREAM_README.md

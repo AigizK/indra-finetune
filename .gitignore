@@ -5,3 +5,14 @@ __pycache__/
 dist/
 build/
 uv.lock
+.model-source/
+runs/
+.pytest_cache/
+data/
+datasets/
+.env
+.env.*
+*.pt
+*.pth
+*.onnx
+*.safetensors
