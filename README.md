@@ -40,6 +40,35 @@ indra-finetune recover --source .model-source --out runs/recovered.pt
 Вместо CLI можно использовать `python -m indra_ocr.finetune` с теми же аргументами.
 Модели скачиваются с Hugging Face, веса и пользовательские датасеты в Git не включены.
 
+## Готовый PyTorch-checkpoint
+
+В [Releases v0.2.0](https://github.com/AigizK/indra-finetune/releases/tag/v0.2.0)
+выложен [recovered.pt](https://github.com/AigizK/indra-finetune/releases/download/v0.2.0/recovered.pt)
+— восстановленный распознаватель на 1 236 110 параметров из исходных весов Indra
+`v3.1.1`. Его можно использовать вместо выполнения команды `recover`.
+Это начальная модель для дообучения; обучение на башкирских данных ещё не проводилось.
+
+Репозиторий приватный: для скачивания нужен доступ к нему и авторизованный GitHub CLI
+(`gh auth login`, если вход ещё не выполнен):
+
+```bash
+gh release download v0.2.0 --repo AigizK/indra-finetune \
+  --pattern recovered.pt --pattern MODEL_LICENSE.txt \
+  --pattern MODEL_CARD.md --pattern SHA256SUMS \
+  --dir runs/pretrained
+
+(cd runs/pretrained && shasum -a 256 -c SHA256SUMS)
+```
+
+Укажите `--checkpoint runs/pretrained/recovered.pt` при запуске `indra-finetune train`.
+Для экспорта и полного OCR по-прежнему нужна исходная папка `.model-source`, которую
+создаёт команда `download`: checkpoint содержит только основной распознаватель строк.
+
+Веса распространяются по исходной лицензии Datalab, приложенной в
+`MODEL_LICENSE.txt` и встроенной в checkpoint. Описание восстановления и изменений
+находится в `MODEL_CARD.md`; значения обученных тензоров исходной модели сохранены.
+Лицензия Apache-2.0 в этом репозитории относится к коду.
+
 ## Формат данных
 
 Одна строка JSONL — одна строка текста. Пути изображений считаются относительно manifest:
